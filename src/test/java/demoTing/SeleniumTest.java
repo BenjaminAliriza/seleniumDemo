@@ -9,23 +9,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SeleniumTest {
 
-    private BrowserGetter browserGetter = new BrowserGetter();
-    private WebDriver driver;
+    private static BrowserGetter browserGetter = new BrowserGetter();
+    private static WebDriver driver;
 
     @BeforeAll
     public void beforeAll() {
         driver = browserGetter.getChromeDriver();
     }
 
-    @AfterAll
-    public void afterAll() {
-        driver.quit();
+    @Test
+    public void openThePageAndCheckTheTitle() {
+        String expectedTitle = "Google";
+        driver.get("https://www.google.com");
+        assertEquals(expectedTitle, driver.getTitle());
     }
 
     @Test
-    public void openThePageAndCheckTheTitle(){
-        String expectedTitle = "Ex title" ;
-        driver.get("www.google.com");
+    public void openThePageAndCheckTheTitle2() {
+        String expectedTitle = "Bing";
+        driver.get("https://www.bing.com");
         assertEquals(expectedTitle, driver.getTitle());
     }
+
+    @AfterAll
+    static void afterAll() {
+
+        driver.quit();
+    }
+
 }
